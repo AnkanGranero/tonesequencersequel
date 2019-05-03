@@ -1,26 +1,131 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
 
-function App() {
+import React, { Component} from 'react';
+import './App.css';
+import Tone from 'tone';
+
+const kick = new Tone.Player("./kick.wav").toMaster();
+const snare = new Tone.Player("./snare.mp3").toMaster();
+
+
+class App extends Component {
+  constructor(props) {
+  super(props)
+
+  this.state = {
+    isPLaying: false,
+    bpm: 120
+  }
+
+}
+
+changeTempo(event){
+
+
+this.setState( {
+  bpm: event.target.value
+})
+
+}
+
+play(){
+
+
+
+  console.log("playing")
+
+
+  let index = 0;
+  Tone.Transport.scheduleRepeat(repeat.bind(this), "8n");
+  
+  if(!this.state.isPLaying){
+    console.log("playing");
+    this.setState({isPLaying: true})
+    Tone.Transport.start();
+  }
+  else if(this.state.isPLaying){
+    console.log("stopped playing");
+    this.setState({isPLaying: false})
+    Tone.Transport.cancel()
+    
+    
+  }
+  
+  function repeat() {
+  
+    
+    
+    if (Tone.context.state !== 'running') {
+      Tone.context.resume();
+    }
+    
+
+  
+         
+          let step = index % 8;
+          let kickInputs = document.querySelector(`.kick input:nth-child(${step +1})`);
+          let snareInputs = document.querySelector(`.snare input:nth-child(${step +1})`);
+
+          Tone.Transport.bpm.value = this.state.bpm;
+
+          if(kickInputs.checked) {
+              kick.start()
+               
+          }
+          
+          if(snareInputs.checked) {
+            
+            
+              snare.start()
+          }
+          index++;
+      }
+
+
+}
+
+render() {
+
+
+let bpm = this.state.bpm;
+
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+
+
+
+   
+<div className="wrapper">
+<button id="play" onClick={this.play.bind(this)}>PLAY</button>
+
+<div className="kick">
+        <input type="checkbox" index="1"></input>
+        <input type="checkbox" index="2"></input>
+        <input type="checkbox" index="3"></input>
+        <input type="checkbox" index="4"></input>
+        <input type="checkbox" index="5"></input>
+        <input type="checkbox" index="6"></input>
+        <input type="checkbox" index="7"></input>
+        <input type="checkbox" index="8"></input>
     </div>
+
+    <div className="snare">
+        <input type="checkbox" index="1"></input>
+        <input type="checkbox" index="2"></input>
+        <input type="checkbox" index="3"></input>
+        <input type="checkbox" index="4"></input>
+        <input type="checkbox" index="5"></input>
+        <input type="checkbox" index="6"></input>
+        <input type="checkbox" index="7"></input>
+        <input type="checkbox" index="8"></input>
+    </div>
+
+ <div><input name="bpm" id="bpm" type="range" min="30" max="200" value={this.state.bpm} onChange={this.changeTempo.bind(this)} steps="0.1"></input>
+ <p>TEMPO: {bpm} BPM</p>
+ </div>
+
+</div>
+
   );
+}
 }
 
 export default App;
