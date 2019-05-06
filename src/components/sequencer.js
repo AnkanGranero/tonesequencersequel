@@ -2,8 +2,37 @@ import React, {Component} from "react"
 import Tone from 'tone';
 
 
-const kick = new Tone.Player("./kick.wav").toMaster();
-const snare = new Tone.Player("./snare.mp3").toMaster();
+const bass = new Tone.Synth().toMaster();
+const melody = new Tone.Synth().toMaster();
+const harmony = new Tone.Synth().toMaster();
+
+let bassNote = "C2";
+let melodyNote = "E4";
+let harmonyNote = "G2";
+let allNotes = ["C","D","E","F","G","A","B"]
+let bassNotes = ["C2", "G2", "A2", "F2"];
+let melodyNotes = ["C4","D4","E4","F4","G4","A4","B4"];
+let harmonyNotes = ["C3","D3","E3","F3","G3","A3","B3"];
+let j = 0;
+
+
+
+function whatSit (sit){
+ let situation = sit.replace(/[^A-Za-z]/g, "");
+ switch(situation){
+ 
+  case "C": return Math.round(Math.random())? "E" : "G" ;
+  case "D": return Math.round(Math.random())? "F" : "A" ;
+  case "E": return Math.round(Math.random())? "G" : "B" ;
+  case "F": return Math.round(Math.random())? "A" : "C" ;
+  case "G": return Math.round(Math.random())? "B" : "D" ;
+  case "A": return Math.round(Math.random())? "C" : "E" ;
+  case "B": return Math.round(Math.random())? "D" : "F" ;
+}
+}
+
+
+
 
 
 
@@ -51,6 +80,10 @@ class Sequencer extends Component {
       
       
     }
+
+ 
+
+  
     
     function repeat() {
     
@@ -59,30 +92,85 @@ class Sequencer extends Component {
       if (Tone.context.state !== 'running') {
         Tone.context.resume();
       }
-      
-  
-    
-           
+            
+            
+            
             let step = index % 8;
-            let kickInputs = document.querySelector(`.kick input:nth-child(${step +1})`);
-            let snareInputs = document.querySelector(`.snare input:nth-child(${step +1})`);
+            let bassInputs = document.querySelector(`.bass input:nth-child(${step +1})`);
+            let melodyInputs = document.querySelector(`.melody input:nth-child(${step +1})`);
+            let harmonyInputs = document.querySelector(`.harmony input:nth-child(${step +1})`);
   
             Tone.Transport.bpm.value = this.state.bpm;
+
+            if( index == 64) {
+              index = 0
+            } 
+
+            
+
+              console.log("vilken sit? "+ whatSit(bassNote));
+
+               melodyNote = whatSit(bassNote) + 4;
+               console.log("melodyNote är "+ melodyNote)
+                 
+               harmonyNote = whatSit(melodyNote) + 3;
+                 console.log(harmonyNote)
+               
+             
+              
+              
+
+
   
-            if(kickInputs.checked) {
-                kick.start()
+  
+
+            if( index % 16 == 0) {
+            
+              bassNote = bassNotes[j++];
+              if (j > 3) {
+                j = 0
+              }
+             }
+  
+            if(bassInputs.checked) {
+              
+
+                bass.triggerAttackRelease(bassNote, "8n" );
+               
                  
             }
             
-            if(snareInputs.checked) {
+            if(melodyInputs.checked) {
               
               
-                snare.start()
+              melody.triggerAttackRelease(melodyNote, "8n" );
             }
+
+
+            if(harmonyInputs.checked) {
+
+
+              harmony.triggerAttackRelease(harmonyNote, "8n");
+            }
+
             index++;
         }
   
   
+  }
+
+   newBassLine(){
+    
+     
+    let arrOfTones = [];
+    for (var i = 0 ; i < 4; i++) {
+      
+       let nr = Math.floor(Math.random() * 7);
+       arrOfTones.push( (allNotes[nr]) + 2 )
+       console.log("what nr " + nr)
+    }
+    console.log(arrOfTones)
+   bassNotes = arrOfTones;
   }
   
   render() {
@@ -99,9 +187,20 @@ class Sequencer extends Component {
   
     
   <div className="wrapper">
+  <div class="buttons">
+  <button id="newBass" onClick={this.newBassLine.bind(this)}>NEW BASSLINE</button>
   <button id="play" onClick={this.play.bind(this)}>{buttonText}</button>
+  </div>
+
+  <div className="sideMenu">
+  <li> BASS</li>
+  <li> MELODY</li>
+  <li>HARMONY</li>
   
-  <div className="kick">
+  </div>
+  
+  <div className="bass">
+          
           <input type="checkbox" index="1"></input>
           <input type="checkbox" index="2"></input>
           <input type="checkbox" index="3"></input>
@@ -112,7 +211,18 @@ class Sequencer extends Component {
           <input type="checkbox" index="8"></input>
       </div>
   
-      <div className="snare">
+      <div className="melody">
+          <input type="checkbox" index="1"></input>
+          <input type="checkbox" index="2"></input>
+          <input type="checkbox" index="3"></input>
+          <input type="checkbox" index="4"></input>
+          <input type="checkbox" index="5"></input>
+          <input type="checkbox" index="6"></input>
+          <input type="checkbox" index="7"></input>
+          <input type="checkbox" index="8"></input>
+      </div>
+
+      <div className="harmony">
           <input type="checkbox" index="1"></input>
           <input type="checkbox" index="2"></input>
           <input type="checkbox" index="3"></input>

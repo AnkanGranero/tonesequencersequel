@@ -32,14 +32,15 @@
   }
 }
 
-#play {
+.buttons button {
 
  border-radius: 5px;
  height: 50px;
  width: 150px;
-
+ margin: 20px;
  margin-bottom: 60px;
 }
+
 
 .wrapper {
 
@@ -74,3 +75,21 @@ input[type='checkbox']:checked {
   margin-top: 60px;
 }
 
+.sideMenu {
+
+  display:flex;
+  flex-direction: column;
+  position: absolute;
+  text-align: right;
+  
+  top: 230px;
+  left: 100px;
+  
+}
+.sideMenu li {
+  margin: 30px;
+  list-style: none;
+  font-weight: 700;
+  
+
+}
