@@ -163,13 +163,20 @@ class Sequencer extends Component {
     
      
     let arrOfTones = [];
-    for (var i = 0 ; i < 4; i++) {
-      
+   
+    for (var i = 0 ; i < 4; i) {
+    
        let nr = Math.floor(Math.random() * 7);
+    
+       if ( allNotes[nr] + 2 !== arrOfTones[i-1]){
        arrOfTones.push( (allNotes[nr]) + 2 )
-       console.log("what nr " + nr)
-    }
-    console.log(arrOfTones)
+       i++;
+       console.log("We pushed a tone " + nr)}
+       
+    } 
+   
+   
+    
    bassNotes = arrOfTones;
   }
   
@@ -190,7 +197,7 @@ class Sequencer extends Component {
   <div class="buttons">
   <button id="newBass" onClick={this.newBassLine.bind(this)}>NEW BASSLINE</button>
   <button id="play" onClick={this.play.bind(this)}>{buttonText}</button>
-  </div>
+</div>
 
   <div className="sideMenu">
   <li> BASS</li>
