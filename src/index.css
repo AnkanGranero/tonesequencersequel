@@ -1,3 +1,15 @@
+html {
+  height: 100%;
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  
+  background-repeat:no-repeat;
+}
+
+
+
 body {
   margin: 0;
   padding: 0;
@@ -6,7 +18,10 @@ body {
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
+  background-image: linear-gradient(rgb(254,146,79),rgb(241,91,120),rgb(170,115,237));
+ 
 }
+
 
 code {
   font-family: source-code-pro, Menlo, Monaco, Consolas, "Courier New",

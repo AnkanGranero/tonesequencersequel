@@ -13,7 +13,8 @@ class Sequencer extends Component {
   
     this.state = {
       isPLaying: false,
-      bpm: 120
+      bpm: 120,
+      buttonText: "PLAY"
     }
   }
   
@@ -40,11 +41,13 @@ class Sequencer extends Component {
       console.log("playing");
       this.setState({isPLaying: true})
       Tone.Transport.start();
+      this.setState({buttonText: "STOP"});
     }
     else if(this.state.isPLaying){
       console.log("stopped playing");
       this.setState({isPLaying: false})
       Tone.Transport.cancel()
+      this.setState({buttonText: "PLAY"});
       
       
     }
@@ -86,7 +89,7 @@ class Sequencer extends Component {
   
 
 
-
+  let buttonText = this.state.buttonText;
   
   let bpm = this.state.bpm;
   
@@ -96,7 +99,7 @@ class Sequencer extends Component {
   
     
   <div className="wrapper">
-  <button id="play" onClick={this.play.bind(this)}>PLAY</button>
+  <button id="play" onClick={this.play.bind(this)}>{buttonText}</button>
   
   <div className="kick">
           <input type="checkbox" index="1"></input>
