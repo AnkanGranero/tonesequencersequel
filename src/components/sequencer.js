@@ -287,8 +287,8 @@ bassNotes.push(this.initialBassNote()) ;
 
   <div className="sideMenu">
   <li> BASS</li>
-  <li> MELODY</li>
-  <li>HARMONY</li>
+  <li> MEL</li>
+  <li>HARM</li>
   
   </div>
   

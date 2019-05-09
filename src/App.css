@@ -19,18 +19,9 @@
   color: white;
 }
 
-.App-link {
-  color: #61dafb;
-}
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
-}
+
+
 
 .buttons button {
 
@@ -51,23 +42,35 @@
   align-items: center;
   margin-top: 100px;
 }
-
 input[type='checkbox'] {
-appearance: none;
-width: 70px;
-height: 70px;
-border: 0px solid white;
-background-color: white;
-opacity: 0.5;
-border-radius: 5px;
-margin: 5px;
-}
+  appearance: none;
+  width: 70px;
+  height: 70px;
+  border: 0px solid white;
+  background-color: white;
+  opacity: 0.5;
+  border-radius: 5px;
+  margin: 5px;
+  }
 
-input[type='checkbox']:checked {
-  opacity: 1;
-  background-color : orange; 
-}
+  .sideMenu {
 
+    display:flex;
+    flex-direction: column;
+    position: absolute;
+    text-align: right;
+    
+    top: 230px;
+    left: 100px;
+    
+  }
+  .sideMenu li {
+    margin: 30px;
+    list-style: none;
+    font-weight: 700;
+    
+  
+  }
 
 #bpm {
   /* appearance: none; */
@@ -75,21 +78,110 @@ input[type='checkbox']:checked {
   margin-top: 60px;
 }
 
-.sideMenu {
 
-  display:flex;
-  flex-direction: column;
+@media (max-width: 414px) {
+
+
+  .wrapper {
+  
+    position: absolute;
+    left: 0px;
+    
+    }
+    input[type="checkbox"]{
+      width: 35px;
+      height: 35px;
+      margin-bottom: 30px;
+    
+    }
+    
+    .sideMenu {
+    
+      display:flex;
+      flex-direction: column;
+      position: absolute;
+      text-align: left;
+      
+      top: 70px;
+      left: -15px;
+      
+      
+    }
+    .sideMenu li {
+      margin-bottom: 30px;
+      list-style: none;
+      font-weight: 700;
+      font-size: 13px;
+    
+    }
+    
+ 
+      
+   
+
+#bpm {
+  /* appearance: none; */
+  width: 200px;
+  margin-top: 60px;
+}
+
+
+
+}
+
+@media (max-width: 320px) {
+
+
+
+  .wrapper {
+  
   position: absolute;
-  text-align: right;
+  left: 0px;
   
-  top: 230px;
-  left: 100px;
+  }
+  input[type="checkbox"]{
+    width: 30px;
+    height: 30px;
+    margin-bottom: 15px;
   
-}
-.sideMenu li {
-  margin: 30px;
-  list-style: none;
-  font-weight: 700;
+  }
   
+  .sideMenu {
+  
+    display:flex;
+    flex-direction: column;
+    position: absolute;
+    text-align: left;
+    
+    top: 100px;
+    left: 0px;
+    
+    
+  }
+  .sideMenu li {
+    margin-bottom: 25px;
+    list-style: none;
+    font-weight: 700;
+    font-size: 13px;
+  
+  }
+  
+  #bpm {
+    /* appearance: none; */
+    width: 150px;
+    margin-top: 60px;
+    height: 4px;
+    
+  }
+  
+  
+  
+  }
 
+input[type='checkbox']:checked {
+  opacity: 1;
+  background-color : orange; 
 }
+
+
+
