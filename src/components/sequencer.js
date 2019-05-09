@@ -9,13 +9,14 @@ const harmony = new Tone.Synth().toMaster();
 let bassNote = "C2";
 let melodyNote = "E4";
 let harmonyNote = "G2";
-let allNotes = ["C","D","E","F","G","A","B"]
-let bassNotes = ["C2", "G2", "A2", "F2"];
-let melodyNotes = ["C4","D4","E4","F4","G4","A4","B4"];
-let harmonyNotes = ["C3","D3","E3","F3","G3","A3","B3"];
-let j = 0;
+
+let bassNotes = [];
 
 
+
+function dice( range) {
+  return Math.floor( Math.random() * range +1 )
+ }
 
 function whatSit (sit){
  let situation = sit.replace(/[^A-Za-z]/g, "");
@@ -30,6 +31,87 @@ function whatSit (sit){
   case "B": return Math.round(Math.random())? "D" : "F" ;
 }
 }
+
+
+
+function bassNoteGenerator (situation){
+  
+  switch(situation){
+  
+   case "C2": switch(dice(8)){
+                    case 1: return "C2";
+                  
+                    case 2: return "D2";
+                     
+                    case 3: return "E2";
+                     
+                    case 4: return "F2";
+                     
+                    case 5: return "G2";
+                     
+                    case 6: return "A2";
+                     
+                    case 7: return "B2";
+                     
+                    case 8: return "C3";
+                     
+   }
+   case "C3": switch(dice(3)){
+                    case 1: return "B2";
+                     
+                    case 2: return "G2";
+                     
+                    case 3: return "C2";
+                         
+   }
+   case "D2": switch(dice(4)){
+                    case 1: return "C2";
+                     
+                    case 2: return "G2";
+                     
+                    case 3: return "G2";
+                     
+                    case 3: return "E2";
+                     
+   }
+   case "E2": switch(dice(3)){
+                    case 1: return "F2";
+                     
+                    case 2: return "D2";
+                     
+                    case 3: return "G2";
+                      
+   }
+   case "F2": switch(dice(3)){
+                    case 1: return "C2";
+                     
+                    case 2: return "G2";
+                     
+                    case 3: return "E2";
+                      
+ }
+ case "G2": switch(dice(6)){
+                    case 1: return "C2";
+                     
+                    case 2: return "C2";
+                     
+                    case 3: return "C3";
+                     
+                    case 4: return "C3";
+                     
+                    case 5: return "F2";
+                     
+                    case 6: return "G2";
+                     
+ }
+ 
+   case "A2": return Math.round(Math.random())? "B2" : "G2" ;
+   case "B2": return Math.round(Math.random())? "C3" : "A2" ;
+ }
+ }
+
+
+
 
 
 
@@ -55,13 +137,19 @@ class Sequencer extends Component {
   })
   
   }
+
+initialBassNote(){
+    switch(dice(3)){
+    case 1: return "C2";
+    case 2: return "C3";
+    case 3: return "G2";
+  
+  }
+}
   
   play(){
   
-  
-  
-    console.log("playing")
-  
+bassNotes.push(this.initialBassNote()) ;
   
     let index = 0;
     Tone.Transport.scheduleRepeat(repeat.bind(this), "8n");
@@ -82,8 +170,8 @@ class Sequencer extends Component {
     }
 
  
-
-  
+      
+    
     
     function repeat() {
     
@@ -106,7 +194,8 @@ class Sequencer extends Component {
               index = 0
             } 
 
-            
+
+             
 
               console.log("vilken sit? "+ whatSit(bassNote));
 
@@ -124,19 +213,16 @@ class Sequencer extends Component {
   
   
 
-            if( index % 16 == 0) {
+              if( index % 16 == 0) {
             
-              bassNote = bassNotes[j++];
-              if (j > 3) {
-                j = 0
-              }
-             }
+              
+             } 
   
             if(bassInputs.checked) {
-              
-
+                bassNote = bassNoteGenerator(bassNote);
+                
                 bass.triggerAttackRelease(bassNote, "8n" );
-               
+              
                  
             }
             
@@ -159,7 +245,7 @@ class Sequencer extends Component {
   
   }
 
-   newBassLine(){
+  /*  newBassLine(){
     
      
     let arrOfTones = [];
@@ -178,7 +264,7 @@ class Sequencer extends Component {
    
     
    bassNotes = arrOfTones;
-  }
+  } */
   
   render() {
   
@@ -195,7 +281,7 @@ class Sequencer extends Component {
     
   <div className="wrapper">
   <div class="buttons">
-  <button id="newBass" onClick={this.newBassLine.bind(this)}>NEW BASSLINE</button>
+ {/*  <button id="newBass" onClick={this.newBassLine.bind(this)}>NEW BASSLINE</button> */}
   <button id="play" onClick={this.play.bind(this)}>{buttonText}</button>
 </div>
 
