@@ -14,7 +14,7 @@
 importScripts("https://storage.googleapis.com/workbox-cdn/releases/4.3.0/workbox-sw.js");
 
 importScripts(
-  "/tonesequencersequel/precache-manifest.2d0732bc77d37837447d65a653598fab.js"
+  "/tonesequencersequel/precache-manifest.8c100bbbad8e14c316721ed73c109917.js"
 );
 
 self.addEventListener('message', (event) => {
